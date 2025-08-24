@@ -1,0 +1,10 @@
+{
+  "name": "stepbystep-website",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npx live-server --port=3000 --entry-file=index.html --no-browser"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

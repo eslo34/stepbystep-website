@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StepByStep Admin - Login Required</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'satoshi': ['Satoshi', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#1D3557',
+                        'accent': '#38B2AC',
+                        'cta': '#60A5FA',
+                        'bg-light': '#F7FAFC',
+                        'text-dark': '#2D2D2D',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-satoshi text-text-dark bg-bg-light min-h-screen">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center px-4">
+        <div class="max-w-md w-full">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="text-center mb-8">
+                    <img src="../StepByStepLogo-Transparent.png" alt="StepByStep Logo" class="w-12 h-14 mx-auto mb-4">
+                    <h1 class="text-2xl font-bold text-primary">StepByStep Admin</h1>
+                    <p class="text-gray-600 mt-2">Enter password to access admin dashboard</p>
+                </div>
+                
+                <form id="loginForm" class="space-y-6">
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <input type="password" id="password" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
+                               placeholder="Enter admin password">
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-primary hover:bg-blue-900 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200">
+                        Access Dashboard
+                    </button>
+                </form>
+                
+                <div id="errorMessage" class="mt-4 text-red-600 text-sm text-center hidden">
+                    Incorrect password. Please try again.
+                </div>
+            </div>
+            
+            <div class="text-center mt-6">
+                <a href="../" class="text-cta hover:text-blue-600 text-sm">← Back to main website</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard (hidden until login) -->
+    <div id="adminDashboard" class="hidden">
+        <!-- Header -->
+        <header class="bg-primary shadow-lg">
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <img src="../StepByStepLogo-Transparent.png" alt="StepByStep Logo" class="w-8 h-10">
+                        <h1 class="text-2xl font-bold text-white">StepByStep Admin</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-white text-sm opacity-75">Lead Management Dashboard</span>
+                        <button id="logoutBtn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm transition-colors">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-6 py-8">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-accent">
+                    <h3 class="text-sm font-medium text-gray-500">Total Leads</h3>
+                    <p id="totalLeads" class="text-2xl font-bold text-text-dark">0</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-yellow-400">
+                    <h3 class="text-sm font-medium text-gray-500">Lists Pending</h3>
+                    <p id="pendingLeads" class="text-2xl font-bold text-text-dark">0</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-cta">
+                    <h3 class="text-sm font-medium text-gray-500">Videos in Progress</h3>
+                    <p id="videoProgress" class="text-2xl font-bold text-text-dark">0</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-green-500">
+                    <h3 class="text-sm font-medium text-gray-500">Completed</h3>
+                    <p id="completedLeads" class="text-2xl font-bold text-text-dark">0</p>
+                </div>
+            </div>
+
+            <!-- Leads Table -->
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-text-dark">Lead Management</h2>
+                    <p class="text-sm text-gray-600">Track and manage all lead magnet submissions</p>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Docs URL</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leadsTable" class="bg-white divide-y divide-gray-200">
+                            <!-- Leads will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-12">
+                    <div class="text-gray-400 mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">No leads yet</h3>
+                    <p class="text-gray-500">Lead submissions will appear here when users fill out your form.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Admin password (In production, this should be server-side!)
+        const ADMIN_PASSWORD = 'stepbystep2024';
+        
+        // Lead status types
+        const STATUS_TYPES = {
+            submitted: { label: 'Submitted', color: 'bg-yellow-100 text-yellow-800' },
+            list_sent: { label: 'List Sent', color: 'bg-blue-100 text-blue-800' },
+            video_created: { label: 'Video Created', color: 'bg-purple-100 text-purple-800' },
+            completed: { label: 'Completed', color: 'bg-green-100 text-green-800' }
+        };
+
+        // Check if user is already logged in
+        function checkLogin() {
+            const isLoggedIn = sessionStorage.getItem('admin_logged_in') === 'true';
+            if (isLoggedIn) {
+                showDashboard();
+            }
+        }
+
+        // Show dashboard and hide login
+        function showDashboard() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminDashboard').classList.remove('hidden');
+            loadDashboard();
+        }
+
+        // Show login and hide dashboard
+        function showLogin() {
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('adminDashboard').classList.add('hidden');
+            sessionStorage.removeItem('admin_logged_in');
+        }
+
+        // Handle login form
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (password === ADMIN_PASSWORD) {
+                sessionStorage.setItem('admin_logged_in', 'true');
+                showDashboard();
+                errorMessage.classList.add('hidden');
+            } else {
+                errorMessage.classList.remove('hidden');
+                document.getElementById('password').value = '';
+            }
+        });
+
+        // Handle logout
+        document.getElementById('logoutBtn').addEventListener('click', showLogin);
+
+        // Get leads from localStorage
+        function getLeads() {
+            const leads = localStorage.getItem('stepbystep_leads');
+            return leads ? JSON.parse(leads) : [];
+        }
+
+        // Save leads to localStorage
+        function saveLeads(leads) {
+            localStorage.setItem('stepbystep_leads', JSON.stringify(leads));
+        }
+
+        // Update lead status
+        function updateLeadStatus(leadId, newStatus) {
+            const leads = getLeads();
+            const leadIndex = leads.findIndex(lead => lead.id === leadId);
+            
+            if (leadIndex !== -1) {
+                leads[leadIndex].status = newStatus;
+                leads[leadIndex].updatedAt = new Date().toISOString();
+                
+                // Add timestamp for specific status changes
+                if (newStatus === 'list_sent' && !leads[leadIndex].listSentAt) {
+                    leads[leadIndex].listSentAt = new Date().toISOString();
+                } else if (newStatus === 'video_created' && !leads[leadIndex].videoCreatedAt) {
+                    leads[leadIndex].videoCreatedAt = new Date().toISOString();
+                } else if (newStatus === 'completed' && !leads[leadIndex].completedAt) {
+                    leads[leadIndex].completedAt = new Date().toISOString();
+                }
+                
+                saveLeads(leads);
+                renderLeads();
+                updateStats();
+            }
+        }
+
+        // Format date for display
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        // Render leads table
+        function renderLeads() {
+            const leads = getLeads();
+            const tableBody = document.getElementById('leadsTable');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (leads.length === 0) {
+                tableBody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            // Sort leads by submission date (newest first)
+            leads.sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
+            
+            tableBody.innerHTML = leads.map(lead => `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium text-gray-900">${lead.company}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${lead.email}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="${lead.docsUrl}" target="_blank" class="text-sm text-cta hover:text-blue-600 truncate block max-w-48">
+                            ${lead.docsUrl}
+                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${formatDate(lead.submittedAt)}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full ${STATUS_TYPES[lead.status].color}">
+                            ${STATUS_TYPES[lead.status].label}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        <select onchange="updateLeadStatus('${lead.id}', this.value)" class="text-sm border border-gray-300 rounded px-2 py-1">
+                            <option value="submitted" ${lead.status === 'submitted' ? 'selected' : ''}>Submitted</option>
+                            <option value="list_sent" ${lead.status === 'list_sent' ? 'selected' : ''}>List Sent</option>
+                            <option value="video_created" ${lead.status === 'video_created' ? 'selected' : ''}>Video Created</option>
+                            <option value="completed" ${lead.status === 'completed' ? 'selected' : ''}>Completed</option>
+                        </select>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Update stats
+        function updateStats() {
+            const leads = getLeads();
+            
+            document.getElementById('totalLeads').textContent = leads.length;
+            document.getElementById('pendingLeads').textContent = leads.filter(l => l.status === 'submitted').length;
+            document.getElementById('videoProgress').textContent = leads.filter(l => l.status === 'list_sent' || l.status === 'video_created').length;
+            document.getElementById('completedLeads').textContent = leads.filter(l => l.status === 'completed').length;
+        }
+
+        // Load dashboard
+        function loadDashboard() {
+            renderLeads();
+            updateStats();
+            
+            // Check for new leads every 30 seconds
+            setInterval(() => {
+                renderLeads();
+                updateStats();
+            }, 30000);
+        }
+
+        // Check login status when page loads
+        document.addEventListener('DOMContentLoaded', checkLogin);
+        
+        // Make updateLeadStatus available globally
+        window.updateLeadStatus = updateLeadStatus;
+    </script>
+</body>
+</html>

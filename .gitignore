@@ -1,0 +1,35 @@
+# Video files (hosted on YouTube instead)
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+
+# Build outputs
+dist/
+build/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
