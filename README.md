@@ -33,7 +33,7 @@ A modern, responsive marketing website for StepByStep - AI-powered tutorial vide
 ## 🔐 Admin Dashboard
 
 Access the admin dashboard at `/admin`:
-- **Password:** `stepbystep2024` 
+- **Password:** `Lastpall12` 
 - **Features:** Lead management, status tracking, analytics
 - **Workflow:** Submitted → List Sent → Video Created → Completed
 
@@ -83,7 +83,7 @@ Form submissions are currently stored in localStorage. For production:
 - **Frontend:** HTML, CSS (Tailwind), JavaScript
 - **Hosting:** Vercel (static)
 - **Videos:** YouTube embeds
-- **Admin:** Client-side auth (needs server-side for production)
+- **Admin:** Client-side auth with password `Lastpall12` (needs server-side for production)
 
 ---
 

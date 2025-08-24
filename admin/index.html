@@ -145,7 +145,7 @@
 
     <script>
         // Admin password (In production, this should be server-side!)
-        const ADMIN_PASSWORD = 'stepbystep2024';
+        const ADMIN_PASSWORD = 'Lastpall12';
         
         // Lead status types
         const STATUS_TYPES = {
@@ -231,6 +231,25 @@
             }
         }
 
+        // Delete lead with confirmation
+        function deleteLead(leadId, companyName, email) {
+            const confirmMessage = `Are you sure you want to delete the lead from "${companyName}" (${email})?\n\nThis action cannot be undone.`;
+            
+            if (confirm(confirmMessage)) {
+                const leads = getLeads();
+                const filteredLeads = leads.filter(lead => lead.id !== leadId);
+                
+                if (filteredLeads.length !== leads.length) {
+                    saveLeads(filteredLeads);
+                    renderLeads();
+                    updateStats();
+                    
+                    // Show success message
+                    alert(`Lead for "${companyName}" has been successfully deleted.`);
+                }
+            }
+        }
+
         // Format date for display
         function formatDate(dateString) {
             const date = new Date(dateString);
@@ -276,12 +295,21 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
-                        <select onchange="updateLeadStatus('${lead.id}', this.value)" class="text-sm border border-gray-300 rounded px-2 py-1">
-                            <option value="submitted" ${lead.status === 'submitted' ? 'selected' : ''}>Submitted</option>
-                            <option value="list_sent" ${lead.status === 'list_sent' ? 'selected' : ''}>List Sent</option>
-                            <option value="video_created" ${lead.status === 'video_created' ? 'selected' : ''}>Video Created</option>
-                            <option value="completed" ${lead.status === 'completed' ? 'selected' : ''}>Completed</option>
-                        </select>
+                        <div class="flex items-center space-x-2">
+                            <select onchange="updateLeadStatus('${lead.id}', this.value)" class="text-sm border border-gray-300 rounded px-2 py-1">
+                                <option value="submitted" ${lead.status === 'submitted' ? 'selected' : ''}>Submitted</option>
+                                <option value="list_sent" ${lead.status === 'list_sent' ? 'selected' : ''}>List Sent</option>
+                                <option value="video_created" ${lead.status === 'video_created' ? 'selected' : ''}>Video Created</option>
+                                <option value="completed" ${lead.status === 'completed' ? 'selected' : ''}>Completed</option>
+                            </select>
+                            <button onclick="deleteLead('${lead.id}', '${lead.company.replace(/'/g, "\\'")}', '${lead.email}')" 
+                                    class="text-red-600 hover:text-red-800 p-1 rounded hover:bg-red-50 transition-colors"
+                                    title="Delete lead">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             `).join('');
@@ -312,8 +340,9 @@
         // Check login status when page loads
         document.addEventListener('DOMContentLoaded', checkLogin);
         
-        // Make updateLeadStatus available globally
+        // Make functions available globally
         window.updateLeadStatus = updateLeadStatus;
+        window.deleteLead = deleteLead;
     </script>
 </body>
 </html>
