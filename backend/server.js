@@ -84,8 +84,10 @@ const EMAIL_TEMPLATES = {
     })
 };
 
-// Zoho OAuth URLs
-const ZOHO_AUTH_URL = `https://accounts.zoho.com/oauth/v2/auth?scope=${ZOHO_CONFIG.scope}&client_id=${ZOHO_CONFIG.clientId}&response_type=code&access_type=${ZOHO_CONFIG.accessType}&redirect_uri=${encodeURIComponent(ZOHO_CONFIG.redirectUri)}`;
+// Zoho OAuth URLs - EU Data Center
+const ZOHO_ACCOUNTS_URL = 'https://accounts.zoho.eu';
+const ZOHO_MAIL_API_URL = 'https://mail.zoho.eu';
+const ZOHO_AUTH_URL = `${ZOHO_ACCOUNTS_URL}/oauth/v2/auth?scope=${ZOHO_CONFIG.scope}&client_id=${ZOHO_CONFIG.clientId}&response_type=code&access_type=${ZOHO_CONFIG.accessType}&redirect_uri=${encodeURIComponent(ZOHO_CONFIG.redirectUri)}`;
 
 // Helper function to get access token
 async function getAccessToken() {
@@ -95,7 +97,7 @@ async function getAccessToken() {
 
     if (authTokens.refreshToken) {
         try {
-            const response = await axios.post('https://accounts.zoho.com/oauth/v2/token', null, {
+            const response = await axios.post(`${ZOHO_ACCOUNTS_URL}/oauth/v2/token`, null, {
                 params: {
                     refresh_token: authTokens.refreshToken,
                     client_id: ZOHO_CONFIG.clientId,
@@ -135,7 +137,7 @@ async function sendEmail(to, subject, htmlContent, companyName) {
             mailFormat: 'html'
         };
 
-        const response = await axios.post('https://mail.zoho.com/api/accounts/me/messages', emailData, {
+        const response = await axios.post(`${ZOHO_MAIL_API_URL}/api/accounts/me/messages`, emailData, {
             headers: {
                 'Authorization': `Zoho-oauthtoken ${accessToken}`,
                 'Content-Type': 'application/json'
@@ -171,7 +173,7 @@ app.get('/auth/callback', async (req, res) => {
     }
 
     try {
-        const tokenResponse = await axios.post('https://accounts.zoho.com/oauth/v2/token', null, {
+        const tokenResponse = await axios.post(`${ZOHO_ACCOUNTS_URL}/oauth/v2/token`, null, {
             params: {
                 grant_type: 'authorization_code',
                 client_id: ZOHO_CONFIG.clientId,
