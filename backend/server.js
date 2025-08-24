@@ -9,8 +9,15 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors({
-    origin: ['https://www.usestepbystep.com', 'http://localhost:3000'],
-    credentials: true
+    origin: [
+        'https://www.usestepbystep.com', 
+        'https://usestepbystep.com', 
+        'https://stepbystep-website-2d4q.vercel.app',
+        'http://localhost:3000'
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
