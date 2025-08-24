@@ -24,8 +24,9 @@ vercel --prod
 ```
 
 ### 3. Set Environment Variables (in Vercel Dashboard)
-- `ZOHO_CLIENT_ID`: 1000.2LAU69WJ6OICG08IM4DR75IOP55IHQ
-- `ZOHO_CLIENT_SECRET`: 370809c49b56273b7624c3391a56cfe56645b35b79
+⚠️ **IMPORTANT: Set these in Vercel Dashboard, NOT in code**
+- `ZOHO_CLIENT_ID`: Your Zoho client ID from api-console.zoho.com
+- `ZOHO_CLIENT_SECRET`: Your Zoho client secret from api-console.zoho.com
 - `ZOHO_REDIRECT_URI`: https://www.usestepbystep.com/auth/callback
 
 ### 4. Authorize Zoho Mail Access
@@ -65,12 +66,14 @@ npm run dev
 ```
 
 ### Environment Variables (.env)
+Create a `.env` file in the backend directory:
 ```
-ZOHO_CLIENT_ID=1000.2LAU69WJ6OICG08IM4DR75IOP55IHQ
-ZOHO_CLIENT_SECRET=370809c49b56273b7624c3391a56cfe56645b35b79
+ZOHO_CLIENT_ID=your_zoho_client_id_here
+ZOHO_CLIENT_SECRET=your_zoho_client_secret_here
 ZOHO_REDIRECT_URI=http://localhost:3001/auth/callback
 PORT=3001
 ```
+⚠️ **Never commit .env files to git - they're already in .gitignore**
 
 ## Email Template
 

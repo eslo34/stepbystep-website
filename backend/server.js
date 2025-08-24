@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors({
@@ -17,12 +17,18 @@ app.use(express.urlencoded({ extended: true }));
 
 // Zoho API Configuration
 const ZOHO_CONFIG = {
-    clientId: process.env.ZOHO_CLIENT_ID || '1000.2LAU69WJ6OICG08IM4DR75IOP55IHQ',
-    clientSecret: process.env.ZOHO_CLIENT_SECRET || '370809c49b56273b7624c3391a56cfe56645b35b79',
-    redirectUri: process.env.ZOHO_REDIRECT_URI || 'https://www.usestepbystep.com/auth/callback',
+    clientId: process.env.ZOHO_CLIENT_ID,
+    clientSecret: process.env.ZOHO_CLIENT_SECRET,
+    redirectUri: process.env.ZOHO_REDIRECT_URI,
     scope: 'ZohoMail.messages.CREATE,ZohoMail.accounts.READ',
     accessType: 'offline'
 };
+
+// Validate required environment variables
+if (!ZOHO_CONFIG.clientId || !ZOHO_CONFIG.clientSecret || !ZOHO_CONFIG.redirectUri) {
+    console.error('❌ Missing required environment variables: ZOHO_CLIENT_ID, ZOHO_CLIENT_SECRET, ZOHO_REDIRECT_URI');
+    process.exit(1);
+}
 
 // Store tokens (In production, use a database)
 let authTokens = {
@@ -34,36 +40,36 @@ let authTokens = {
 // Email Templates
 const EMAIL_TEMPLATES = {
     welcomeEmail: (companyName, docsUrl) => ({
-        subject: "Your Custom Video List is Ready! 🎬",
+        subject: "Thank you for your submission! We'll send your custom video list within 24 hours 🎬",
         html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="text-align: center; margin-bottom: 30px;">
-                <h1 style="color: #1D3557; font-size: 24px;">Thanks for your interest in StepByStep!</h1>
+                <h1 style="color: #1D3557; font-size: 24px;">Thank you for your submission!</h1>
             </div>
             
-            <p>Hi there from the ${companyName} team,</p>
+            <p>Hi there from the StepByStep team,</p>
             
-            <p>Thank you for submitting your documentation link. I've analyzed your platform and created a custom list of tutorial videos that would deliver the most value for your users.</p>
+            <p>Thank you so much for submitting your documentation link! We're excited to help you create better tutorial videos for your users.</p>
             
             <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <h3 style="color: #1D3557; margin-top: 0;">📋 What's Next:</h3>
+                <h3 style="color: #1D3557; margin-top: 0;">📋 What happens next:</h3>
                 <ol style="line-height: 1.6;">
-                    <li><strong>Custom Video List:</strong> I'll send your personalized video recommendations within 24 hours</li>
-                    <li><strong>FREE Tutorial Video:</strong> Once you approve the list, I'll create your first tutorial video completely free</li>
-                    <li><strong>Strategy Call:</strong> Let's discuss how these videos can improve your user experience</li>
+                    <li><strong>FREE custom tutorial video list</strong> - We'll review your documentation and platform and then give you a complete list of tutorial and other videos that would give you the most value within 24 hours</li>
+                    <li><strong>FREE tutorial video creation</strong> - Once you approve the list, we'll create your first tutorial video completely for free</li>
                 </ol>
             </div>
             
             <p>Your documentation URL: <a href="${docsUrl}" style="color: #60A5FA;">${docsUrl}</a></p>
             
             <div style="text-align: center; margin: 30px 0;">
+                <p><strong>Want to chat sooner?</strong> Book a quick 15-minute call with us:</p>
                 <a href="https://calendly.com/eslo-editing/30min" 
                    style="background: #60A5FA; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
                    📅 Schedule a Quick Call
                 </a>
             </div>
             
-            <p>Have questions? Just reply to this email - I read every message personally.</p>
+            <p>We'll be in touch soon with your personalized video recommendations!</p>
             
             <p>Best regards,<br>
             <strong>StepByStep Team</strong><br>

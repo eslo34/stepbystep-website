@@ -11,10 +11,5 @@
       "src": "/(.*)",
       "dest": "server.js"
     }
-  ],
-  "env": {
-    "ZOHO_CLIENT_ID": "1000.2LAU69WJ6OICG08IM4DR75IOP55IHQ",
-    "ZOHO_CLIENT_SECRET": "370809c49b56273b7624c3391a56cfe56645b35b79",
-    "ZOHO_REDIRECT_URI": "https://www.usestepbystep.com/auth/callback"
-  }
+  ]
 }
