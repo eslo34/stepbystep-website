@@ -233,10 +233,10 @@
             <form id="staticForm" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
                 <div class="space-y-6">
                     <div class="text-left">
-                        <label for="docs-url" class="block text-sm font-medium text-gray-700 mb-2">Link to your documentation *</label>
-                        <input type="url" id="docs-url" name="docs-url" required 
+                        <label for="docs-url" class="block text-sm font-medium text-gray-700 mb-2">Your documentation *</label>
+                        <input type="text" id="docs-url" name="docs-url" required 
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
-                               placeholder="https://docs.yourcompany.com">
+                               placeholder="Link to docs, or describe what help materials you have">
                     </div>
                     
                     <div class="text-left">
@@ -253,8 +253,12 @@
                                placeholder="Your Company">
                     </div>
                     
-                    <button type="submit" class="w-full bg-cta hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-colors duration-200">
-                        Get My FREE Custom Video List + FREE Tutorial Video
+                    <button type="submit" id="modalSubmitBtn" class="w-full bg-cta hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-colors duration-200 flex items-center justify-center">
+                        <span id="modalSubmitText">Get My FREE Custom Video List + FREE Tutorial Video</span>
+                        <svg id="modalSubmitSpinner" class="hidden animate-spin ml-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
                     </button>
                 </div>
             </form>
@@ -291,6 +295,27 @@
         </div>
     </footer>
 
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 opacity-0 invisible flex items-center justify-center z-50 p-4 transition-all duration-500 ease-in-out">
+        <div class="bg-primary rounded-lg p-8 max-w-md w-full transform scale-95 transition-all duration-500 ease-in-out">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-4">Thank you for your submission!</h3>
+                <p class="text-blue-100 mb-6 leading-relaxed">
+                    We've sent you an email to confirm your details and we'll start working on your custom video list right away. 
+                    You'll have it in under 24 hours!
+                </p>
+                <button id="closeSuccessModal" class="bg-cta hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200">
+                    Perfect!
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Popup -->
     <div id="leadModal" class="fixed inset-0 bg-black bg-opacity-50 opacity-0 invisible flex items-center justify-center z-50 p-4 transition-all duration-500 ease-in-out">
         <div class="bg-primary rounded-lg p-8 max-w-2xl w-full max-h-screen overflow-y-auto transform scale-95 transition-all duration-500 ease-in-out relative">
@@ -306,10 +331,10 @@
             
             <form id="modalForm" class="space-y-6">
                 <div class="text-left">
-                    <label for="modal-docs-url" class="block text-sm font-medium text-white mb-2">Link to your documentation *</label>
-                    <input type="url" id="modal-docs-url" name="docs-url" required 
+                    <label for="modal-docs-url" class="block text-sm font-medium text-white mb-2">Your documentation *</label>
+                    <input type="text" id="modal-docs-url" name="docs-url" required 
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
-                           placeholder="https://docs.yourcompany.com">
+                           placeholder="Link to docs, or describe what help materials you have">
                 </div>
                 
                 <div class="text-left">
@@ -326,8 +351,12 @@
                            placeholder="Your Company">
                 </div>
                 
-                <button type="submit" class="w-full bg-cta hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-colors duration-200">
-                    Get My FREE Custom Video List + FREE Tutorial Video
+                <button type="submit" id="staticSubmitBtn" class="w-full bg-cta hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-colors duration-200 flex items-center justify-center">
+                    <span id="staticSubmitText">Get My FREE Custom Video List + FREE Tutorial Video</span>
+                    <svg id="staticSubmitSpinner" class="hidden animate-spin ml-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
                 </button>
             </form>
         </div>
@@ -338,6 +367,50 @@
         const modal = document.getElementById('leadModal');
         const closeModalBtn = document.getElementById('closeModal');
         const modalForm = document.getElementById('modalForm');
+        
+        // Get success modal elements
+        const successModal = document.getElementById('successModal');
+        const closeSuccessModalBtn = document.getElementById('closeSuccessModal');
+        
+        // Loading state functions
+        function showLoading(buttonType) {
+            if (buttonType === 'modal') {
+                document.getElementById('modalSubmitBtn').disabled = true;
+                document.getElementById('modalSubmitText').textContent = 'Sending...';
+                document.getElementById('modalSubmitSpinner').classList.remove('hidden');
+            } else {
+                document.getElementById('staticSubmitBtn').disabled = true;
+                document.getElementById('staticSubmitText').textContent = 'Sending...';
+                document.getElementById('staticSubmitSpinner').classList.remove('hidden');
+            }
+        }
+        
+        function hideLoading(buttonType) {
+            if (buttonType === 'modal') {
+                document.getElementById('modalSubmitBtn').disabled = false;
+                document.getElementById('modalSubmitText').textContent = 'Get My FREE Custom Video List + FREE Tutorial Video';
+                document.getElementById('modalSubmitSpinner').classList.add('hidden');
+            } else {
+                document.getElementById('staticSubmitBtn').disabled = false;
+                document.getElementById('staticSubmitText').textContent = 'Get My FREE Custom Video List + FREE Tutorial Video';
+                document.getElementById('staticSubmitSpinner').classList.add('hidden');
+            }
+        }
+        
+        // Success modal functions
+        function showSuccessModal() {
+            successModal.classList.remove('opacity-0', 'invisible');
+            successModal.children[0].classList.remove('scale-95');
+            successModal.children[0].classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeSuccessModal() {
+            successModal.classList.add('opacity-0', 'invisible');
+            successModal.children[0].classList.add('scale-95');
+            successModal.children[0].classList.remove('scale-100');
+            document.body.style.overflow = '';
+        }
         
         // Get all CTA buttons
         const ctaButtons = document.querySelectorAll('button:not([type="submit"]):not(#closeModal)');
@@ -407,6 +480,7 @@
             localStorage.setItem('stepbystep_leads', JSON.stringify(existingLeads));
             
             // Send email via EmailJS
+            showLoading('modal');
             try {
                 const templateParams = {
                     email: data.email,
@@ -422,16 +496,18 @@
                 );
                 
                 console.log('Email sent successfully:', result);
-                alert('Thank you for your submission! You will receive an email from us shortly with your custom video list and next steps.');
+                hideLoading('modal');
+                closeModal();
+                modalForm.reset();
+                showSuccessModal();
                 
             } catch (error) {
                 console.error('Email sending error:', error);
-                alert('Thank you for your submission! We\'ve received your information and will send you an email shortly with your custom video list and next steps. If you don\'t receive our email within a few hours, please check your spam folder.');
+                hideLoading('modal');
+                closeModal();
+                modalForm.reset();
+                showSuccessModal();
             }
-            
-            // Close modal and reset form
-            closeModal();
-            modalForm.reset();
         });
         
         // Close modal with Escape key
@@ -439,7 +515,13 @@
             if (e.key === 'Escape' && !modal.classList.contains('invisible')) {
                 closeModal();
             }
+            if (e.key === 'Escape' && !successModal.classList.contains('invisible')) {
+                closeSuccessModal();
+            }
         });
+        
+        // Close success modal button
+        closeSuccessModalBtn.addEventListener('click', closeSuccessModal);
 
         // Handle static form submission (Lead Magnet section)
         const staticForm = document.getElementById('staticForm');
@@ -467,6 +549,7 @@
                 localStorage.setItem('stepbystep_leads', JSON.stringify(existingLeads));
                 
                 // Send email via EmailJS
+                showLoading('static');
                 try {
                     const templateParams = {
                         email: data.email,
@@ -482,15 +565,16 @@
                     );
                     
                     console.log('Email sent successfully:', result);
-                    alert('Thank you for your submission! You will receive an email from us shortly with your custom video list and next steps.');
+                    hideLoading('static');
+                    staticForm.reset();
+                    showSuccessModal();
                     
                 } catch (error) {
                     console.error('Email sending error:', error);
-                    alert('Thank you for your submission! We\'ve received your information and will send you an email shortly with your custom video list and next steps. If you don\'t receive our email within a few hours, please check your spam folder.');
+                    hideLoading('static');
+                    staticForm.reset();
+                    showSuccessModal();
                 }
-                
-                // Reset form
-                staticForm.reset();
             });
         }
     </script>
