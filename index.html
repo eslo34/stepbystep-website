@@ -254,6 +254,41 @@
                         <input type="email" id="email" name="email" required
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
                                placeholder="you@gmail.com">
+                        <div class="mt-2">
+                            <button type="button" id="showOtherOptions" class="text-sm text-cta hover:text-blue-500 underline">
+                                Prefer SMS, WhatsApp, or want to book a call instead?
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Alternative Contact Options (Initially Hidden) -->
+                    <div id="alternativeOptions" class="text-left space-y-4 hidden">
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                            <input type="tel" id="phone" name="phone"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
+                                   placeholder="+1 (555) 123-4567">
+                            <p class="text-xs text-gray-500 mt-1">We'll send your video list via SMS & WhatsApp</p>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="sms" name="contactMethods" value="sms" 
+                                       class="h-4 w-4 text-cta focus:ring-cta border-gray-300 rounded">
+                                <label for="sms" class="ml-2 block text-sm text-gray-700">Send via SMS</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="whatsapp" name="contactMethods" value="whatsapp"
+                                       class="h-4 w-4 text-cta focus:ring-cta border-gray-300 rounded">
+                                <label for="whatsapp" class="ml-2 block text-sm text-gray-700">Send via WhatsApp</label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <button type="button" id="bookCallInstead" class="text-sm text-cta hover:text-blue-500 underline">
+                                Click here to book a call instead
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="text-left">
@@ -352,6 +387,41 @@
                     <input type="email" id="modal-email" name="email" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
                            placeholder="you@gmail.com">
+                    <div class="mt-2">
+                        <button type="button" id="modalShowOtherOptions" class="text-sm text-blue-100 hover:text-white underline">
+                            Prefer SMS, WhatsApp, or want to book a call instead?
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Alternative Contact Options (Initially Hidden) -->
+                <div id="modalAlternativeOptions" class="text-left space-y-4 hidden">
+                    <div>
+                        <label for="modal-phone" class="block text-sm font-medium text-white mb-2">Phone Number</label>
+                        <input type="tel" id="modal-phone" name="phone"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
+                               placeholder="+1 (555) 123-4567">
+                        <p class="text-xs text-blue-100 mt-1">We'll send your video list via SMS & WhatsApp</p>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="modal-sms" name="contactMethods" value="sms" 
+                                   class="h-4 w-4 text-cta focus:ring-cta border-gray-300 rounded">
+                            <label for="modal-sms" class="ml-2 block text-sm text-white">Send via SMS</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="modal-whatsapp" name="contactMethods" value="whatsapp"
+                                   class="h-4 w-4 text-cta focus:ring-cta border-gray-300 rounded">
+                            <label for="modal-whatsapp" class="ml-2 block text-sm text-white">Send via WhatsApp</label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button type="button" id="modalBookCallInstead" class="text-sm text-blue-100 hover:text-white underline">
+                            Click here to book a call instead
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="text-left">
@@ -494,12 +564,18 @@
             const formData = new FormData(modalForm);
             const data = Object.fromEntries(formData);
             
+            // Get contact methods
+            const contactMethods = Array.from(modalForm.querySelectorAll('input[name="contactMethods"]:checked')).map(cb => cb.value);
+            const phoneNumber = data.phone || '';
+            
             // Create lead object
             const lead = {
                 id: Date.now().toString(), // Simple ID generation
                 company: data.company,
                 email: data.email,
                 docsUrl: data['docs-url'],
+                phone: phoneNumber,
+                contactMethods: contactMethods,
                 submittedAt: new Date().toISOString(),
                 status: 'submitted'
             };
@@ -515,7 +591,9 @@
                 const templateParams = {
                     email: data.email,
                     company: data.company,
-                    docs_url: data['docs-url']
+                    docs_url: data['docs-url'],
+                    phone: phoneNumber,
+                    contact_methods: contactMethods.join(', ') || 'Email'
                 };
 
                 const result = await emailjs.send(
@@ -560,6 +638,78 @@
         
         // Close success modal button
         closeSuccessModalBtn.addEventListener('click', closeSuccessModal);
+        
+        // Progressive disclosure functionality for main form
+        const showOtherOptionsBtn = document.getElementById('showOtherOptions');
+        const alternativeOptions = document.getElementById('alternativeOptions');
+        const bookCallBtn = document.getElementById('bookCallInstead');
+        const staticSubmitBtn = document.getElementById('staticSubmitBtn');
+        const staticSubmitText = document.getElementById('staticSubmitText');
+        
+        // Progressive disclosure functionality for modal form
+        const modalShowOtherOptionsBtn = document.getElementById('modalShowOtherOptions');
+        const modalAlternativeOptions = document.getElementById('modalAlternativeOptions');
+        const modalBookCallBtn = document.getElementById('modalBookCallInstead');
+        const modalSubmitBtn = document.getElementById('modalSubmitBtn');
+        const modalSubmitText = document.getElementById('modalSubmitText');
+        
+        // Track which form has alternative options showing
+        let mainFormShowingAlternatives = false;
+        let modalFormShowingAlternatives = false;
+        
+        // Show alternative options for main form
+        showOtherOptionsBtn.addEventListener('click', function() {
+            alternativeOptions.classList.remove('hidden');
+            showOtherOptionsBtn.style.display = 'none';
+            mainFormShowingAlternatives = true;
+            updateButtonText('static');
+        });
+        
+        // Show alternative options for modal form
+        modalShowOtherOptionsBtn.addEventListener('click', function() {
+            modalAlternativeOptions.classList.remove('hidden');
+            modalShowOtherOptionsBtn.style.display = 'none';
+            modalFormShowingAlternatives = true;
+            updateButtonText('modal');
+        });
+        
+        // Function to update button text based on selection
+        function updateButtonText(formType) {
+            if (formType === 'static' && mainFormShowingAlternatives) {
+                staticSubmitText.textContent = 'Get My FREE Video List via SMS & WhatsApp';
+            } else if (formType === 'modal' && modalFormShowingAlternatives) {
+                modalSubmitText.textContent = 'Get My FREE Video List via SMS & WhatsApp';
+            }
+        }
+        
+        // Function to scroll to Calendly section
+        function scrollToCalendly() {
+            const calendlyElement = document.querySelector('.calendly-inline-widget');
+            if (calendlyElement) {
+                calendlyElement.closest('section').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            } else {
+                // Fallback: scroll to bottom of page if calendly widget not found
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // Book a call functionality for main form
+        bookCallBtn.addEventListener('click', function() {
+            scrollToCalendly();
+        });
+        
+        // Book a call functionality for modal form
+        modalBookCallBtn.addEventListener('click', function() {
+            closeModal();
+            setTimeout(() => {
+                scrollToCalendly();
+            }, 600); // Wait for modal to close
+        });
 
         // Handle static form submission (Lead Magnet section)
         const staticForm = document.getElementById('staticForm');
@@ -571,12 +721,18 @@
                 const formData = new FormData(staticForm);
                 const data = Object.fromEntries(formData);
                 
+                // Get contact methods
+                const contactMethods = Array.from(staticForm.querySelectorAll('input[name="contactMethods"]:checked')).map(cb => cb.value);
+                const phoneNumber = data.phone || '';
+                
                 // Create lead object
                 const lead = {
                     id: Date.now().toString(), // Simple ID generation
                     company: data.company,
                     email: data.email,
                     docsUrl: data['docs-url'],
+                    phone: phoneNumber,
+                    contactMethods: contactMethods,
                     submittedAt: new Date().toISOString(),
                     status: 'submitted'
                 };
@@ -592,7 +748,9 @@
                     const templateParams = {
                         email: data.email,
                         company: data.company,
-                        docs_url: data['docs-url']
+                        docs_url: data['docs-url'],
+                        phone: phoneNumber,
+                        contact_methods: contactMethods.join(', ') || 'Email'
                     };
 
                     const result = await emailjs.send(
