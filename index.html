@@ -250,7 +250,7 @@
                     </div>
                     
                     <div class="text-left">
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Gmail *</label>
+                        <label for="email" id="emailLabel" class="block text-sm font-medium text-gray-700 mb-2">Gmail *</label>
                         <input type="email" id="email" name="email" required
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
                                placeholder="you@gmail.com">
@@ -383,7 +383,7 @@
                 </div>
                 
                 <div class="text-left">
-                    <label for="modal-email" class="block text-sm font-medium text-white mb-2">Gmail *</label>
+                    <label for="modal-email" id="modalEmailLabel" class="block text-sm font-medium text-white mb-2">Gmail *</label>
                     <input type="email" id="modal-email" name="email" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
                            placeholder="you@gmail.com">
@@ -568,11 +568,16 @@
             const contactMethods = Array.from(modalForm.querySelectorAll('input[name="contactMethods"]:checked')).map(cb => cb.value);
             const phoneNumber = data.phone || '';
             
+            // Validate form
+            if (!validateForm(data, contactMethods)) {
+                return; // Stop submission if validation fails
+            }
+            
             // Create lead object
             const lead = {
                 id: Date.now().toString(), // Simple ID generation
                 company: data.company,
-                email: data.email,
+                email: data.email || '',
                 docsUrl: data['docs-url'],
                 phone: phoneNumber,
                 contactMethods: contactMethods,
@@ -589,7 +594,7 @@
             showLoading('modal');
             try {
                 const templateParams = {
-                    email: data.email,
+                    email: data.email || 'Not provided',
                     company: data.company,
                     docs_url: data['docs-url'],
                     phone: phoneNumber,
@@ -663,6 +668,7 @@
             showOtherOptionsBtn.style.display = 'none';
             mainFormShowingAlternatives = true;
             updateButtonText('static');
+            updateEmailRequirement('static');
         });
         
         // Show alternative options for modal form
@@ -671,6 +677,7 @@
             modalShowOtherOptionsBtn.style.display = 'none';
             modalFormShowingAlternatives = true;
             updateButtonText('modal');
+            updateEmailRequirement('modal');
         });
         
         // Function to update button text based on selection
@@ -680,6 +687,41 @@
             } else if (formType === 'modal' && modalFormShowingAlternatives) {
                 modalSubmitText.textContent = 'Get My FREE Video List via SMS & WhatsApp';
             }
+        }
+        
+        // Function to update email requirement based on alternative options
+        function updateEmailRequirement(formType) {
+            if (formType === 'static') {
+                const emailInput = document.getElementById('email');
+                const emailLabel = document.getElementById('emailLabel');
+                emailInput.removeAttribute('required');
+                emailLabel.textContent = 'Gmail (optional)';
+            } else if (formType === 'modal') {
+                const modalEmailInput = document.getElementById('modal-email');
+                const modalEmailLabel = document.getElementById('modalEmailLabel');
+                modalEmailInput.removeAttribute('required');
+                modalEmailLabel.textContent = 'Gmail (optional)';
+            }
+        }
+        
+        // Function to validate form before submission
+        function validateForm(formData, contactMethods) {
+            const email = formData.email?.trim();
+            const phone = formData.phone?.trim();
+            
+            // Must have either email OR phone with at least one contact method selected
+            if (!email && (!phone || contactMethods.length === 0)) {
+                alert('Please provide either an email address OR a phone number with SMS/WhatsApp contact methods selected.');
+                return false;
+            }
+            
+            // If phone is provided, at least one contact method must be selected
+            if (phone && contactMethods.length === 0) {
+                alert('Please select at least one contact method (SMS or WhatsApp) for your phone number.');
+                return false;
+            }
+            
+            return true;
         }
         
         // Function to scroll to Calendly section
@@ -725,11 +767,16 @@
                 const contactMethods = Array.from(staticForm.querySelectorAll('input[name="contactMethods"]:checked')).map(cb => cb.value);
                 const phoneNumber = data.phone || '';
                 
+                // Validate form
+                if (!validateForm(data, contactMethods)) {
+                    return; // Stop submission if validation fails
+                }
+                
                 // Create lead object
                 const lead = {
                     id: Date.now().toString(), // Simple ID generation
                     company: data.company,
-                    email: data.email,
+                    email: data.email || '',
                     docsUrl: data['docs-url'],
                     phone: phoneNumber,
                     contactMethods: contactMethods,
@@ -746,7 +793,7 @@
                 showLoading('static');
                 try {
                     const templateParams = {
-                        email: data.email,
+                        email: data.email || 'Not provided',
                         company: data.company,
                         docs_url: data['docs-url'],
                         phone: phoneNumber,
