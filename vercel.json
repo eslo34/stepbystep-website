@@ -1,0 +1,13 @@
+{
+  "rewrites": [
+    {
+      "source": "/tutoriallist",
+      "destination": "/tutoriallist.html"
+    },
+    {
+      "source": "/tutoriallist/",
+      "destination": "/tutoriallist.html"
+    }
+  ],
+  "cleanUrls": true
+}
