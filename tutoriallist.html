@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Your FREE Custom Tutorial Video List - StepByStep</title>
+    <meta name="description" content="Get a FREE custom tutorial video list for your SaaS platform plus one tutorial video created completely free. Submit your documentation link and we'll deliver your personalized video recommendations within 24 hours.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1D3557',
+                        secondary: '#457B9D',
+                        accent: '#F1FAEE',
+                        cta: '#60A5FA',
+                        warning: '#E63946'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff33;
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: backdropFadeIn 0.3s ease-out;
+        }
+
+        @keyframes backdropFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .success-modal {
+            background: linear-gradient(135deg, #1D3557 0%, #457B9D 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-4xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">S</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary">StepByStep</span>
+                </div>
+                <a href="/" class="text-sm text-gray-600 hover:text-primary">← Back to Main Site</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="min-h-screen py-12 sm:py-20">
+        <div class="max-w-4xl mx-auto px-6">
+            
+            <!-- Hero Section -->
+            <div class="text-center mb-16">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary mb-6">
+                    Get Your <span class="text-cta">FREE</span><br>
+                    Custom Tutorial Video List
+                </h1>
+                <p class="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                    Submit your documentation link and we'll create a complete list of tutorial videos that would deliver the most value to your users
+                </p>
+                <div class="bg-accent p-6 rounded-2xl border border-secondary/20 max-w-2xl mx-auto">
+                    <p class="text-lg text-primary font-medium mb-2">
+                        <span class="text-cta font-bold">BONUS:</span> We'll create your first tutorial video completely FREE
+                    </p>
+                    <p class="text-gray-600">
+                        And then we'll create your first tutorial video completely for free.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Lead Magnet Form -->
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-xl p-8 sm:p-12">
+                    <h2 class="text-2xl font-bold text-primary mb-2 text-center">Get Started Now</h2>
+                    <p class="text-gray-600 mb-8 text-center">We'll have your custom video list ready within 24 hours</p>
+                    
+                    <form id="staticForm" class="space-y-6">
+                        <div class="text-left">
+                            <label for="staticDocsUrl" class="block text-sm font-medium text-gray-700 mb-2">Documentation Link or Platform Details *</label>
+                            <input type="text" id="staticDocsUrl" name="docs-url" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
+                                   placeholder="https://docs.yourplatform.com or describe your platform">
+                        </div>
+
+                        <div class="text-left">
+                            <label for="staticCompany" class="block text-sm font-medium text-gray-700 mb-2">Company Name *</label>
+                            <input type="text" id="staticCompany" name="company" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
+                                   placeholder="Your Company Name">
+                        </div>
+
+                        <div class="text-left">
+                            <label for="staticEmail" id="staticEmailLabel" class="block text-sm font-medium text-gray-700 mb-2">Gmail *</label>
+                            <input type="email" id="staticEmail" name="email" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
+                                   placeholder="you@gmail.com">
+                            <div class="mt-2">
+                                <button type="button" id="staticShowOtherOptions" class="text-sm text-cta hover:text-blue-500 underline">
+                                    Prefer SMS, WhatsApp, or want to book a call instead?
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Alternative Contact Options (Initially Hidden) -->
+                        <div id="staticAlternativeOptions" class="text-left space-y-4 hidden">
+                            <div>
+                                <label for="staticPhone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" id="staticPhone" name="phone"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cta focus:border-transparent"
+                                       placeholder="+1 (555) 123-4567">
+                                <p class="text-xs text-gray-500 mt-1">We'll send your video list via SMS & WhatsApp</p>
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="staticSms" name="contactMethods" value="sms"
+                                           class="h-4 w-4 text-cta focus:ring-cta border-gray-300 rounded">
+                                    <label for="staticSms" class="ml-2 block text-sm text-gray-700">Send via SMS</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="staticWhatsapp" name="contactMethods" value="whatsapp"
+                                           class="h-4 w-4 text-cta focus:ring-cta border-gray-300 rounded">
+                                    <label for="staticWhatsapp" class="ml-2 block text-sm text-gray-700">Send via WhatsApp</label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <button type="button" id="staticBookCallInstead" class="text-sm text-cta hover:text-blue-500 underline">
+                                    Click here to book a call instead
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="staticSubmitBtn" class="w-full bg-cta hover:bg-blue-500 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 flex items-center justify-center">
+                            <span id="staticSubmitText">Get Your FREE Custom Video List + FREE Tutorial Video</span>
+                            <div id="staticSubmitSpinner" class="spinner ml-2 hidden"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Trust Elements -->
+            <div class="mt-16 text-center">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-cta/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">⚡</span>
+                        </div>
+                        <h3 class="font-semibold text-primary mb-2">24-Hour Delivery</h3>
+                        <p class="text-gray-600 text-sm">Get your custom video list within 24 hours</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-cta/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🎯</span>
+                        </div>
+                        <h3 class="font-semibold text-primary mb-2">Tailored to You</h3>
+                        <p class="text-gray-600 text-sm">Custom recommendations based on your platform</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-cta/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🎥</span>
+                        </div>
+                        <h3 class="font-semibold text-primary mb-2">FREE Video Included</h3>
+                        <p class="text-gray-600 text-sm">We'll create one tutorial video at no cost</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+        <div class="success-modal text-white p-8 rounded-2xl max-w-md w-full mx-4 text-center fade-in">
+            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-2xl">✨</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">Thank You!</h3>
+            <p class="mb-6 text-white/90">
+                We've sent you an email to confirm your details and we'll start working on your custom video list. 
+                You'll have it within 24 hours!
+            </p>
+            <p class="text-sm text-white/80 mb-6">
+                If you provided a phone number, we'll contact you within 2-3 hours to confirm your requirements.
+            </p>
+            <button id="closeSuccessModal" class="bg-white/20 hover:bg-white/30 text-white px-6 py-2 rounded-lg transition duration-200">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                    <span class="text-primary font-bold text-sm">S</span>
+                </div>
+                <span class="text-xl font-bold">StepByStep</span>
+            </div>
+            <p class="text-white/80 mb-4">AI-powered tutorial videos for SaaS platforms</p>
+            <p class="text-sm text-white/60">
+                Contact: hello@usestepbystep.com
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize EmailJS
+        emailjs.init("RuOysBNvLy7NCAhjY");
+
+        // Elements
+        const staticForm = document.getElementById('staticForm');
+        const successModal = document.getElementById('successModal');
+        const closeSuccessModalBtn = document.getElementById('closeSuccessModal');
+        const staticShowOtherOptions = document.getElementById('staticShowOtherOptions');
+        const staticAlternativeOptions = document.getElementById('staticAlternativeOptions');
+        const staticBookCallInstead = document.getElementById('staticBookCallInstead');
+        const staticEmailLabel = document.getElementById('staticEmailLabel');
+        const staticEmail = document.getElementById('staticEmail');
+
+        // Progressive disclosure for static form
+        staticShowOtherOptions.addEventListener('click', function() {
+            staticAlternativeOptions.classList.remove('hidden');
+            staticShowOtherOptions.style.display = 'none';
+        });
+
+        // Book call instead button
+        staticBookCallInstead.addEventListener('click', function() {
+            window.location.href = '/#book-call';
+        });
+
+        // Handle contact method changes for static form
+        const staticContactCheckboxes = document.querySelectorAll('#staticAlternativeOptions input[name="contactMethods"]');
+        
+        function updateStaticEmailRequirement() {
+            const anyChecked = Array.from(staticContactCheckboxes).some(cb => cb.checked);
+            const phoneField = document.getElementById('staticPhone');
+            const phoneValue = phoneField.value.trim();
+            
+            if (anyChecked && phoneValue) {
+                staticEmail.required = false;
+                staticEmailLabel.textContent = 'Gmail (optional if phone provided)';
+            } else {
+                staticEmail.required = true;
+                staticEmailLabel.textContent = 'Gmail *';
+            }
+        }
+
+        staticContactCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateStaticEmailRequirement);
+        });
+
+        document.getElementById('staticPhone').addEventListener('input', updateStaticEmailRequirement);
+
+        // Loading animation functions
+        function showLoading(formType) {
+            const submitBtn = document.getElementById(`${formType === 'static' ? 'static' : 'modal'}SubmitBtn`);
+            const submitText = document.getElementById(`${formType === 'static' ? 'static' : 'modal'}SubmitText`);
+            const submitSpinner = document.getElementById(`${formType === 'static' ? 'static' : 'modal'}SubmitSpinner`);
+            
+            submitBtn.disabled = true;
+            submitText.style.display = 'none';
+            submitSpinner.classList.remove('hidden');
+        }
+
+        function hideLoading(formType) {
+            const submitBtn = document.getElementById(`${formType === 'static' ? 'static' : 'modal'}SubmitBtn`);
+            const submitText = document.getElementById(`${formType === 'static' ? 'static' : 'modal'}SubmitText`);
+            const submitSpinner = document.getElementById(`${formType === 'static' ? 'static' : 'modal'}SubmitSpinner`);
+            
+            submitBtn.disabled = false;
+            submitText.style.display = 'inline';
+            submitSpinner.classList.add('hidden');
+        }
+
+        function showSuccessModal() {
+            successModal.classList.remove('hidden');
+        }
+
+        function closeSuccessModal() {
+            successModal.classList.add('hidden');
+        }
+
+        // Close success modal
+        closeSuccessModalBtn.addEventListener('click', closeSuccessModal);
+        successModal.addEventListener('click', function(e) {
+            if (e.target === successModal) {
+                closeSuccessModal();
+            }
+        });
+
+        // Form submission
+        staticForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(staticForm);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Get contact methods
+            const contactMethods = [];
+            const checkedBoxes = document.querySelectorAll('#staticAlternativeOptions input[name="contactMethods"]:checked');
+            checkedBoxes.forEach(box => contactMethods.push(box.value));
+            
+            // Get phone number
+            const phoneNumber = document.getElementById('staticPhone').value || '';
+
+            // Send email via EmailJS
+            showLoading('static');
+            try {
+                const templateParams = {
+                    email: data.email || 'Not provided',
+                    company: data.company,
+                    docs_url: data['docs-url'],
+                    phone: phoneNumber,
+                    contact_methods: contactMethods.join(', ') || 'Email'
+                };
+
+                const result = await emailjs.send(
+                    'service_uk7232d',
+                    'template_3vhck0e',
+                    templateParams,
+                    'RuOysBNvLy7NCAhjY'
+                );
+
+                console.log('Email sent successfully:', result);
+
+                // Small delay to show loading animation
+                setTimeout(() => {
+                    hideLoading('static');
+                    staticForm.reset();
+                    staticAlternativeOptions.classList.add('hidden');
+                    staticShowOtherOptions.style.display = 'inline';
+                    showSuccessModal();
+                }, 800);
+
+            } catch (error) {
+                console.error('Email sending error:', error);
+
+                // Small delay to show loading animation even on error
+                setTimeout(() => {
+                    hideLoading('static');
+                    staticForm.reset();
+                    staticAlternativeOptions.classList.add('hidden');
+                    staticShowOtherOptions.style.display = 'inline';
+                    showSuccessModal();
+                }, 800);
+            }
+        });
+    </script>
+</body>
+</html>
