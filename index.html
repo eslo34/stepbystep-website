@@ -438,7 +438,7 @@
   }
   @media (max-width:520px){
     .steps{grid-template-columns:1fr}
-    .wrap{padding:0 18px}
+    .wrap{padding:0 22px}
     .nav-in{padding:0 18px}
   }
 
@@ -830,38 +830,13 @@
     });
   }
 
-  /* ================= SYNC STATE-MACHINE DEMO ================= */
-  var badge = document.getElementById('syncBadge');
-  var renderBtn = document.getElementById('renderBtn');
-  var sweep = document.getElementById('sweep');
-  var lineStable = document.getElementById('lineStable');
-  var lineOld = document.getElementById('lineOld');
-  var lineNew = document.getElementById('lineNew');
-  var syncDemo = document.getElementById('sweep').closest('.sync-demo');
-
-  function badgeState(cls, txt){ badge.className = 'badge' + (cls?(' '+cls):''); badge.innerHTML = '<span class="bdot"></span>'+txt; }
-  function showStable(){ lineStable.classList.remove('hide'); lineOld.classList.add('hide'); lineNew.classList.add('hide'); }
-  function showDiff(){ lineStable.classList.add('hide'); lineOld.classList.remove('hide'); lineNew.classList.remove('hide'); }
-
-  var syncStates = [
-    { dur:2200, run:function(){ showStable(); lineStable.innerHTML='<span class="gutter">5</span>      <span class="at">label</span>=<span class="fn">"Save draft"</span>'; renderBtn.textContent='Save draft'; badgeState('', 'IN SYNC'); } },
-    { dur:1900, run:function(){ showDiff(); badgeState('amber','CHANGE DETECTED'); } },
-    { dur:1700, run:function(){ badgeState('amber','RE-RENDERING…'); sweep.classList.remove('run'); void sweep.offsetWidth; sweep.classList.add('run'); setTimeout(function(){ renderBtn.textContent='Publish'; renderBtn.classList.add('flash'); setTimeout(function(){renderBtn.classList.remove('flash');},700); }, 560); } },
-    { dur:2200, run:function(){ showStable(); lineStable.innerHTML='<span class="gutter">5</span>      <span class="at">label</span>=<span class="fn">"Publish"</span>'; badgeState('', 'RE-SYNCED · 2s ago'); } }
-  ];
-
-  var sb = 0, syncTimer = null, syncRunning = false;
-  function syncStep(){ syncStates[sb].run(); var d = syncStates[sb].dur; sb = (sb+1) % syncStates.length; syncTimer = setTimeout(syncStep, d); }
-  function syncStart(){ if(syncRunning) return; syncRunning = true; sb = 0; syncStep(); }
-  function syncStop(){ syncRunning = false; if(syncTimer) clearTimeout(syncTimer); }
-
-  if(reduce){
-    showStable(); lineStable.innerHTML='<span class="gutter">5</span>      <span class="at">label</span>=<span class="fn">"Publish"</span>';
-    renderBtn.textContent='Publish'; badgeState('', 'IN SYNC');
-  } else if('IntersectionObserver' in window){
-    var syncIO = new IntersectionObserver(function(e){ e[0].isIntersecting ? syncStart() : syncStop(); }, {threshold:.35});
-    syncIO.observe(syncDemo);
-  } else { syncStart(); }
+  /* ============ SYNC ANIMATION: auto-size iframe to its content ============ */
+  window.addEventListener('message', function(e){
+    if(e && e.data && e.data.sbsSyncHeight){
+      var sf = document.querySelector('.sync-frame');
+      if(sf){ sf.style.height = e.data.sbsSyncHeight + 'px'; }
+    }
+  });
 
   /* ---- click-to-play tutorial clips ---- */
   document.querySelectorAll('.vclip').forEach(function(clip){
