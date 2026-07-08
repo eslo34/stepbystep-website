@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en" style="background:transparent">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{color-scheme:dark;--ground:#0A0C10;--raised:#12151B;--inset:#06080B;--line:rgba(151,164,190,.12);--line-2:rgba(151,164,190,.20);--text:#ECEDE7;--text-2:#A7ACB7;--text-3:#6C7280;--sync:#5FE38C;--sync-ink:#04140B;--sync-dim:rgba(95,227,140,.14);--sync-line:rgba(95,227,140,.34);--render:#F5B44C;--render-dim:rgba(245,180,76,.15);--stale:#FF6B6B;--stale-dim:rgba(255,107,107,.14);--radius:16px;--shadow:0 24px 70px -28px rgba(0,0,0,.75);--ease:cubic-bezier(.22,1,.36,1);--sans:-apple-system,BlinkMacSystemFont,"Segoe UI Variable Display","Segoe UI",system-ui,Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,"Cascadia Code","SF Mono","Segoe UI Mono",Menlo,Consolas,monospace;}
+*{box-sizing:border-box;}
+html,body{margin:0;background:transparent;color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow:hidden;}
+body{margin:0;padding:2px 20px 10px;}
+@media (max-width:720px){
+  body{padding:12px 14px;}
+  #stageRef{flex-direction:column !important;align-items:stretch !important;gap:2px !important;}
+  #stageRef>div:nth-child(1),#stageRef>div:nth-child(3){flex:0 0 auto !important;width:100% !important;}
+  #stageRef>div:nth-child(2){width:100% !important;margin:18px 0 !important;min-height:54px;display:flex;align-items:center;justify-content:center;align-self:center !important;}
+  #connLineRef{width:54px !important;margin:0 !important;transform:rotate(90deg);}
+  section>div:nth-child(2){order:-1;margin:0 0 22px 0 !important;}
+}
+</style>
+</head>
+<body>
+<section style="position:relative;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;background:transparent;">
+
+  <div id="stageRef" style="position:relative;z-index:1;width:100%;max-width:1240px;display:flex;align-items:center;gap:0;transform-origin:center center;">
+
+    <!-- ===== LEFT: YOUR PRODUCT ===== -->
+    <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:13px;">
+      <div style="display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--text-3);">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--text-3);"></span>YOUR PRODUCT
+      </div>
+      <div style="position:relative;background:var(--raised);border:1px solid var(--line-2);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;">
+        <div style="display:flex;align-items:center;gap:12px;padding:0 15px;height:42px;border-bottom:1px solid var(--line);">
+          <div style="display:flex;gap:6px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:rgba(151,164,190,.22);"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:rgba(151,164,190,.22);"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:rgba(151,164,190,.22);"></div>
+          </div>
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--text-3);flex:1;">app.acme.com/flows</div>
+          <div style="font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--text-3);border:1px solid var(--line);padding:2px 8px;border-radius:20px;">LIVE APP</div>
+        </div>
+        <div id="lpBodyRef" style="position:relative;overflow:hidden;padding:18px 20px 20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding-bottom:14px;border-bottom:1px solid var(--line);">
+            <div>
+              <div style="font-size:15px;font-weight:600;color:var(--text);line-height:1.2;">Onboarding flow</div>
+              <div style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--text-3);margin-top:5px;">FLOW EDITOR</div>
+            </div>
+            <div id="lpBtnRef" style="position:relative;width:118px;height:38px;border-radius:10px;background:#20242c;border:1px solid var(--line-2);display:grid;place-items:center;flex-shrink:0;">
+              <span id="lpBtnSaveRef" style="grid-area:1/1;font-size:13.5px;font-weight:600;color:var(--text);">Save draft</span>
+              <span id="lpBtnPubRef" style="grid-area:1/1;font-size:13.5px;font-weight:600;color:var(--text);opacity:0;">Publish</span>
+            </div>
+          </div>
+          <div style="position:relative;margin-top:4px;">
+            <div style="position:absolute;left:17.5px;top:17px;bottom:17px;width:2px;background:var(--line-2);z-index:0;"></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:11px 12px;position:relative;">
+              <div style="width:13px;height:13px;border-radius:50%;border:2px solid var(--sync-line);background:var(--ground);flex-shrink:0;position:relative;z-index:1;"></div>
+              <div style="font-size:14px;font-weight:500;color:var(--text);">New signup</div>
+              <div style="margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--text-3);border:1px solid var(--line);padding:3px 8px;border-radius:20px;">TRIGGER</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:11px 12px;position:relative;">
+              <div style="width:13px;height:13px;border-radius:50%;border:2px solid var(--sync-line);background:var(--ground);flex-shrink:0;position:relative;z-index:1;"></div>
+              <div style="font-size:14px;font-weight:500;color:var(--text);">Send welcome email</div>
+              <div style="margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--text-3);border:1px solid var(--line);padding:3px 8px;border-radius:20px;">EMAIL</div>
+            </div>
+            <div id="lpNewStepRef" style="height:0;overflow:hidden;">
+              <div style="display:flex;align-items:center;gap:14px;padding:11px 12px;position:relative;">
+                <div id="lpNewNodeRef" style="width:13px;height:13px;border-radius:50%;border:2px solid var(--sync-line);background:var(--ground);flex-shrink:0;position:relative;z-index:1;"></div>
+                <div style="font-size:14px;font-weight:500;color:var(--text);">Add to CRM</div>
+                <div style="margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--text-3);border:1px solid var(--line);padding:3px 8px;border-radius:20px;">ACTION</div>
+              </div>
+            </div>
+          </div>
+          <div id="lpScanRef" style="position:absolute;left:0;right:0;top:0;height:96px;pointer-events:none;opacity:0;background:linear-gradient(180deg,rgba(95,227,140,0),rgba(95,227,140,.14) 48%,rgba(95,227,140,0));z-index:4;">
+            <div style="position:absolute;left:0;right:0;top:48px;height:2px;background:var(--sync);box-shadow:0 0 18px 4px var(--sync-line);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CONNECTOR ===== -->
+    <div style="width:76px;flex-shrink:0;align-self:center;position:relative;margin-top:26px;">
+      <div id="connLineRef" style="position:relative;height:2px;background:var(--line-2);margin:0 6px;border-radius:2px;">
+        <div id="arrowRef" style="position:absolute;right:-1px;top:-4px;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid rgb(38,42,51);"></div>
+        <div id="pulseRef" style="position:absolute;top:-3px;left:0;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--sync);box-shadow:0 0 12px 2px var(--sync-line);opacity:0;"></div>
+      </div>
+    </div>
+
+    <!-- ===== RIGHT: YOUR VIDEO ===== -->
+    <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:13px;">
+      <div style="display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--text-3);">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--sync);box-shadow:0 0 8px var(--sync);"></span>YOUR STEPBYSTEP VIDEO
+      </div>
+      <div id="rvFrameRef" style="position:relative;background:var(--raised);border:1px solid var(--line-2);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;">
+        <div style="display:flex;align-items:center;gap:12px;padding:0 15px;height:42px;border-bottom:1px solid var(--line);">
+          <div style="display:flex;gap:6px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:rgba(151,164,190,.22);"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:rgba(151,164,190,.22);"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:rgba(151,164,190,.22);"></div>
+          </div>
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--text-3);flex:1;">onboarding.mp4</div>
+          <div id="rvEqRef" style="display:flex;align-items:flex-end;gap:3px;height:15px;">
+            <div style="width:3px;height:7px;border-radius:2px;background:var(--sync);"></div>
+            <div style="width:3px;height:11px;border-radius:2px;background:var(--sync);"></div>
+            <div style="width:3px;height:6px;border-radius:2px;background:var(--sync);"></div>
+            <div style="width:3px;height:9px;border-radius:2px;background:var(--sync);"></div>
+          </div>
+          <div id="rvPillRef" style="display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:20px;border:1px solid var(--sync-line);background:var(--sync-dim);color:var(--sync);font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.13em;white-space:nowrap;overflow:hidden;transition:width .55s var(--ease),background .55s var(--ease),border-color .55s var(--ease),color .55s var(--ease);">
+            <span id="rvPillDotRef" style="width:7px;height:7px;border-radius:50%;background:var(--sync);box-shadow:0 0 8px var(--sync);transition:background .5s var(--ease),box-shadow .5s var(--ease);"></span>
+            <span id="rvPillLabelRef" style="display:inline-block;transform-origin:center;">IN SYNC</span>
+          </div>
+        </div>
+        <div id="rvBodyRef" style="position:relative;overflow:hidden;padding:18px 20px 20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding-bottom:14px;border-bottom:1px solid var(--line);">
+            <div>
+              <div style="font-size:15px;font-weight:600;color:var(--text);line-height:1.2;">Onboarding flow</div>
+              <div style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--text-3);margin-top:5px;">FLOW EDITOR</div>
+            </div>
+            <div id="rvBtnRef" style="position:relative;width:118px;height:38px;border-radius:10px;background:#20242c;border:1px solid var(--line-2);display:grid;place-items:center;flex-shrink:0;">
+              <span id="rvBtnSaveRef" style="grid-area:1/1;font-size:13.5px;font-weight:600;color:var(--text);">Save draft</span>
+              <span id="rvBtnPubRef" style="grid-area:1/1;font-size:13.5px;font-weight:600;color:var(--text);opacity:0;">Publish</span>
+              <div id="rvBtnCheckRef" style="position:absolute;top:-9px;right:-9px;width:21px;height:21px;border-radius:50%;background:var(--sync);color:var(--sync-ink);display:grid;place-items:center;font-size:11px;font-weight:700;opacity:0;box-shadow:0 0 14px rgba(95,227,140,.6);">&#10003;</div>
+            </div>
+          </div>
+          <div style="position:relative;margin-top:4px;">
+            <div style="position:absolute;left:17.5px;top:17px;bottom:17px;width:2px;background:var(--line-2);z-index:0;"></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:11px 12px;position:relative;">
+              <div style="width:13px;height:13px;border-radius:50%;border:2px solid var(--sync-line);background:var(--ground);flex-shrink:0;position:relative;z-index:1;"></div>
+              <div style="font-size:14px;font-weight:500;color:var(--text);">New signup</div>
+              <div style="margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--text-3);border:1px solid var(--line);padding:3px 8px;border-radius:20px;">TRIGGER</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:11px 12px;position:relative;">
+              <div style="width:13px;height:13px;border-radius:50%;border:2px solid var(--sync-line);background:var(--ground);flex-shrink:0;position:relative;z-index:1;"></div>
+              <div style="font-size:14px;font-weight:500;color:var(--text);">Send welcome email</div>
+              <div style="margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--text-3);border:1px solid var(--line);padding:3px 8px;border-radius:20px;">EMAIL</div>
+            </div>
+            <div id="rvNewStepRef" style="height:0;overflow:hidden;">
+              <div style="display:flex;align-items:center;gap:14px;padding:11px 12px;position:relative;">
+                <div id="rvNewNodeRef" style="width:13px;height:13px;border-radius:50%;border:2px dashed var(--stale);background:var(--ground);flex-shrink:0;position:relative;z-index:1;"></div>
+                <div id="rvNewLabelRef" style="font-size:14px;font-weight:500;color:var(--text);opacity:.4;">Add to CRM</div>
+                <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+                  <div id="rvMissTagRef" style="font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.13em;color:var(--stale);background:var(--stale-dim);border:1px solid rgba(255,107,107,.4);padding:3px 8px;border-radius:20px;opacity:0;">MISSING</div>
+                  <div id="rvCheckRef" style="width:19px;height:19px;border-radius:50%;background:var(--sync);color:var(--sync-ink);display:grid;place-items:center;font-size:10px;font-weight:700;opacity:0;box-shadow:0 0 12px rgba(95,227,140,.5);">&#10003;</div>
+                  <div style="font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--text-3);border:1px solid var(--line);padding:3px 8px;border-radius:20px;">ACTION</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="rvShimmerRef" style="position:absolute;top:-24px;bottom:-24px;left:0;width:130px;pointer-events:none;opacity:0;background:linear-gradient(90deg,rgba(95,227,140,0),rgba(95,227,140,.42),rgba(95,227,140,0));z-index:4;"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:0 16px;height:42px;border-top:1px solid var(--line);">
+          <span style="color:var(--text-3);font-size:10px;">&#9654;</span>
+          <div style="position:relative;flex:1;height:4px;border-radius:3px;background:rgba(151,164,190,.18);">
+            <div id="rvFillRef" style="position:absolute;left:0;top:0;bottom:0;width:0;border-radius:3px;background:rgba(95,227,140,.5);"></div>
+            <div id="rvKnobRef" style="position:absolute;top:50%;left:0;width:11px;height:11px;margin-left:-5.5px;border-radius:50%;background:var(--sync);transform:translateY(-50%);box-shadow:0 0 10px rgba(95,227,140,.6);"></div>
+          </div>
+          <span id="rvTcRef" style="font-family:var(--mono);font-size:10.5px;color:var(--text-2);font-variant-numeric:tabular-nums;">00:00 / 00:14</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:relative;z-index:1;display:flex;align-items:center;gap:12px;margin-top:32px;min-height:26px;">
+    <span id="captionDotRef" style="width:10px;height:10px;border-radius:50%;background:var(--sync);box-shadow:0 0 10px var(--sync);flex-shrink:0;"></span>
+    <span id="captionRef" style="font-size:20px;font-weight:500;color:var(--text-2);letter-spacing:-.01em;">Your video matches your live product.</span>
+  </div>
+
+</section>
+<script>
+(function(){
+  var IDS=['rvKnobRef','captionDotRef','rvPillLabelRef','rvPillRef','captionRef','rvFillRef','rvCheckRef','rvFrameRef','rvEqRef','rvBtnCheckRef','rvPillDotRef','rvNewLabelRef','rvShimmerRef','lpNewStepRef','rvBtnRef','pulseRef','rvMissTagRef','lpNewNodeRef','rvNewNodeRef','rvBtnPubRef','rvBtnSaveRef','rvTcRef','rvNewStepRef','arrowRef','lpScanRef','stageRef','lpBodyRef','rvBodyRef','lpBtnRef','connLineRef','lpBtnSaveRef','lpBtnPubRef'];
+  var refs={}; IDS.forEach(function(k){ refs[k]=document.getElementById(k); });
+  function apply(t){
+    const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+    const seg=(x,a,b)=>clamp((x-a)/(b-a),0,1);
+    const eo=x=>1-Math.pow(1-x,3);
+    const lerp=(a,b,x)=>a+(b-a)*x;
+    const pad=n=>n<10?('0'+n):(''+n);
+    const set=(ref,fn)=>{ if(ref&&ref) fn(ref.style, ref); };
+
+    const G={dot:'#5FE38C',bg:'rgba(95,227,140,.14)',bd:'rgba(95,227,140,.34)',fg:'#5FE38C'};
+    const A={dot:'#F5B44C',bg:'rgba(245,180,76,.15)',bd:'rgba(245,180,76,.36)',fg:'#F5B44C'};
+    const RED={dot:'#FF6B6B',bg:'rgba(255,107,107,.14)',bd:'rgba(255,107,107,.40)',fg:'#FF6B6B'};
+    const LOOP=27;
+    const rev = eo(seg(t,24.5,25.5)); // graceful reset -> last frame == first frame
+
+    // ============ TIMELINE ============
+    // 0.0  in sync
+    // 2.5  PRODUCT: rename button -> Publish
+    // 3.6  PRODUCT: add "Add to CRM" step        (both product changes first, one held caption)
+    // 8.0  VIDEO becomes OUT OF DATE (red glowing border)
+    // 11.0 StepByStep SCANS the product
+    // 13.8 CHANGE DETECTED   (last 3 beats given extra room to breathe)
+    // 17.0 RE-RENDERING (video catches up)
+    // 20.5 UP TO DATE / in sync
+    // 24.5 graceful reset to the identical start frame
+
+    // ---- caption ----
+    let cap, capAcc;
+    if(t<2.5){ cap='Your video matches your live product.'; capAcc=G; }
+    else if(t<8.0){ cap='You rename a button and add a new step in your workflow.'; capAcc=G; }
+    else if(t<11.0){ cap='Now your recording is out of date.'; capAcc=RED; }
+    else if(t<13.8){ cap='StepByStep scans your product for changes.'; capAcc=A; }
+    else if(t<17.0){ cap='Change detected.'; capAcc=A; }
+    else if(t<20.5){ cap='The affected video re-renders to match.'; capAcc=A; }
+    else if(t<24.5){ cap='Your video is up to date. No re-recording.'; capAcc=G; }
+    else { cap='Your video matches your live product.'; capAcc=G; }
+
+    if(refs.captionRef) refs.captionRef.textContent=cap;
+    const bnds=[2.5,8.0,11.0,13.8,17.0,20.5,24.5];
+    let dmin=99; for(let i=0;i<bnds.length;i++){ const d=Math.abs(t-bnds[i]); if(d<dmin) dmin=d; }
+    const capO=eo(clamp(dmin/0.34,0,1));
+    set(refs.captionRef,(s)=>{ s.opacity=capO; });
+    set(refs.captionDotRef,(s)=>{ s.background=capAcc.dot; s.boxShadow='0 0 10px '+capAcc.dot; s.opacity=capO; });
+
+    // ---- video status pill ----
+    let vLabel, vAcc;
+    if(t<8.0){ vLabel='IN SYNC'; vAcc=G; }
+    else if(t<13.8){ vLabel='OUT OF DATE'; vAcc=RED; }
+    else if(t<17.0){ vLabel='CHANGE DETECTED'; vAcc=A; }
+    else if(t<20.5){ vLabel='RE-RENDERING\u2026'; vAcc=A; }
+    else if(t<24.5){ vLabel='UP TO DATE'; vAcc=G; }
+    else { vLabel='IN SYNC'; vAcc=G; }
+    set(refs.rvPillRef,(s)=>{ s.background=vAcc.bg; s.borderColor=vAcc.bd; s.color=vAcc.fg; });
+    set(refs.rvPillDotRef,(s)=>{ s.background=vAcc.dot; s.boxShadow='0 0 9px '+vAcc.dot; });
+    if(refs.rvPillLabelRef) refs.rvPillLabelRef.textContent=vLabel;
+    // pill grows sideways smoothly: width transitions to fit each label while the colour glides
+    if(refs.rvPillLabelRef && refs.rvPillRef){
+      const lw=refs.rvPillLabelRef.scrollWidth; // natural label width (unaffected by the pill clipping)
+      refs.rvPillRef.style.width=(Math.ceil(lw)+38)+'px';
+      refs.rvPillRef.style.transform='none';
+      refs.rvPillLabelRef.style.opacity=1;
+      refs.rvPillLabelRef.style.transform='none';
+    }
+
+    // video equalizer — loop-periodic
+    if(refs.rvEqRef){
+      const bars=refs.rvEqRef.children;
+      for(let i=0;i<bars.length;i++){
+        bars[i].style.height=(5+8*(0.5+0.5*Math.sin(2*Math.PI*6*(t/LOOP)+i*1.25)))+'px';
+        bars[i].style.background=vAcc.fg;
+      }
+    }
+
+    // ---- red glowing border on the video frame while it is out of date; green flash when re-synced ----
+    // frame border tracks the state: red (out of date) -> amber (detecting / re-rendering) -> green flash (synced)
+    const redB=eo(seg(t,8.0,8.7))*(1-eo(seg(t,13.6,14.0)));
+    const amberB=eo(seg(t,13.6,14.0))*(1-eo(seg(t,20.3,21.1)));
+    const greenB=eo(seg(t,20.5,21.3))*(1-eo(seg(t,23.2,24.1)));
+    const puls=0.75+0.25*Math.sin(t*3.4);
+    const rGlow=redB*puls, aGlow=amberB*puls;
+    set(refs.rvFrameRef,(s)=>{ s.boxShadow='var(--shadow), 0 0 0 1.5px rgba(255,107,107,'+(0.7*redB).toFixed(3)+'), 0 0 30px rgba(255,107,107,'+(0.42*rGlow).toFixed(3)+'), 0 0 0 1.5px rgba(245,180,76,'+(0.7*amberB).toFixed(3)+'), 0 0 30px rgba(245,180,76,'+(0.42*aGlow).toFixed(3)+'), 0 0 0 1.5px rgba(95,227,140,'+(0.7*greenB).toFixed(3)+'), 0 0 26px rgba(95,227,140,'+(0.4*greenB).toFixed(3)+')'; });
+
+    // ============ LEFT: the product changes first ============
+    const lpPub=eo(seg(t,2.5,3.2))*(1-rev);
+    set(refs.lpBtnPubRef,(s)=>{ s.opacity=lpPub; });
+    set(refs.lpBtnSaveRef,(s)=>{ s.opacity=1-lpPub; });
+    const lpBtnPing=eo(seg(t,2.5,2.9))*(1-eo(seg(t,3.4,4.1)));
+    set(refs.lpBtnRef,(s)=>{ s.boxShadow='0 0 0 1.5px rgba(95,227,140,'+(0.9*lpBtnPing).toFixed(3)+'), 0 0 20px rgba(95,227,140,'+(0.3*lpBtnPing).toFixed(3)+')'; });
+    const lpH=52*eo(seg(t,3.6,4.5))*(1-rev);
+    set(refs.lpNewStepRef,(s)=>{ s.height=lpH+'px'; });
+    const lpNodePing=eo(seg(t,3.6,4.1))*(1-eo(seg(t,4.6,5.3)));
+    set(refs.lpNewNodeRef,(s)=>{ s.boxShadow='0 0 0 3px rgba(95,227,140,'+(0.45*lpNodePing).toFixed(3)+')'; });
+    // product scan (we watch your product) ~9.0-10.8
+    const lpBh=refs.lpBodyRef?refs.lpBodyRef.offsetHeight:340;
+    const lpScanY=lerp(-100,lpBh+30,seg(t,11.0,12.8));
+    const lpScanO=Math.min(seg(t,11.0,11.3),1-seg(t,12.5,12.85));
+    set(refs.lpScanRef,(s)=>{ s.transform='translateY('+lpScanY+'px)'; s.opacity=lpScanO; });
+
+    // ============ CONNECTOR: change flows product -> video during detect/render ============
+    const pulseX=seg(t,13.8,18.0);
+    const pulseO=Math.min(seg(t,13.8,14.1),1-seg(t,17.6,18.0));
+    set(refs.pulseRef,(s)=>{ s.left=(pulseX*100)+'%'; s.opacity=pulseO; });
+    const connGlow=Math.min(seg(t,13.6,14.0),1-seg(t,18.2,18.8));
+    set(refs.connLineRef,(s)=>{ s.background=connGlow>0.02?('rgba(95,227,140,'+(0.2+0.5*connGlow).toFixed(3)+')'):'var(--line-2)'; s.boxShadow=connGlow>0.02?('0 0 10px rgba(95,227,140,'+(0.5*connGlow).toFixed(3)+')'):'none'; });
+    // arrowhead: opaque so the line never shows through, and it turns green with the line
+    set(refs.arrowRef,(s)=>{ s.borderLeftColor='rgb('+Math.round(lerp(38,95,connGlow))+','+Math.round(lerp(42,227,connGlow))+','+Math.round(lerp(51,140,connGlow))+')'; });
+
+    // ============ RIGHT: the video catches up ============
+    const rendered = (t>=18.4 && t<25.5); // video content now matches product
+    // stale video button + red ring while out of date (from 8.0), re-labels on re-render
+    const rvPub=eo(seg(t,17.4,18.3))*(1-rev);
+    set(refs.rvBtnPubRef,(s)=>{ s.opacity=rvPub; });
+    set(refs.rvBtnSaveRef,(s)=>{ s.opacity=1-rvPub; });
+    const rvRing=eo(seg(t,8.2,8.8))*(1-eo(seg(t,17.0,17.6)));
+    set(refs.rvBtnRef,(s)=>{ s.boxShadow='0 0 0 1.5px rgba(255,107,107,'+(0.9*rvRing).toFixed(3)+'), 0 0 20px rgba(255,107,107,'+(0.26*rvRing).toFixed(3)+')'; });
+    const rvBtnChk=eo(seg(t,18.6,19.3))*(1-rev);
+    set(refs.rvBtnCheckRef,(s)=>{ s.opacity=rvBtnChk; s.transform='scale('+lerp(0.4,1,rvBtnChk).toFixed(3)+')'; });
+    // video shows the step as MISSING (red) once out of date, then re-renders it in (green)
+    const rvH=52*eo(seg(t,8.2,9.0))*(1-rev);
+    set(refs.rvNewStepRef,(s)=>{ s.height=rvH+'px'; });
+    const missO=eo(seg(t,8.6,9.0))*(1-eo(seg(t,17.6,18.1)));
+    set(refs.rvMissTagRef,(s)=>{ s.opacity=missO; });
+    set(refs.rvNewNodeRef,(s)=>{
+      if(rendered){ s.border='2px solid #5FE38C'; s.background='rgba(95,227,140,.18)'; }
+      else { s.border='2px dashed #FF6B6B'; s.background='#0A0C10'; }
+    });
+    const rvLabelO=lerp(0.4,1,eo(seg(t,17.8,18.5)));
+    set(refs.rvNewLabelRef,(s)=>{ s.opacity=rvLabelO; });
+    const rvChk=eo(seg(t,18.6,19.3))*(1-rev);
+    set(refs.rvCheckRef,(s)=>{ s.opacity=rvChk; });
+    // re-render green sweep across the video
+    const rvBw=refs.rvBodyRef?refs.rvBodyRef.offsetWidth:520;
+    const rvShX=lerp(-rvBw*0.5,rvBw*1.05,seg(t,17.4,19.2));
+    const rvShO=Math.min(seg(t,17.4,17.8),1-seg(t,18.9,19.3))*0.85;
+    set(refs.rvShimmerRef,(s)=>{ s.transform='translateX('+rvShX+'px) skewX(-16deg)'; s.opacity=rvShO; });
+    // scrubber: steady fill, playhead advances then rewinds to 0 on reset
+    const php=seg(t,0,24.5)*(1-eo(seg(t,24.5,25.5)));
+    set(refs.rvFillRef,(s)=>{ s.width=(php*100)+'%'; });
+    set(refs.rvKnobRef,(s)=>{ s.left=(php*100)+'%'; });
+    if(refs.rvTcRef){ const cur=Math.min(14,Math.round(php*14)); refs.rvTcRef.textContent='00:'+pad(cur)+' / 00:14'; }
+
+    // gentle breathing zoom, returns to exactly 1.0 at both loop ends
+    const scale=(false)?1:(1+0.006*Math.sin(Math.PI*(t/LOOP)));
+    set(refs.stageRef,(s)=>{ s.transform='scale('+scale.toFixed(4)+')'; });}
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ apply(22.0); return; }
+  var base=27, speed=base/24, LOOP=base, start=performance.now();
+  setInterval(function(){ var t=((performance.now()-start)/1000*speed)%LOOP; apply(t); }, 1000/60);
+})();
+</script>
+</body>
+</html>

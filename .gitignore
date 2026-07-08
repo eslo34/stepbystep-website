@@ -1,8 +1,11 @@
-# Video files (hosted on YouTube instead)
+# Video files (raw masters — hosted elsewhere, never committed)
 *.mp4
 *.mov
 *.avi
 *.mkv
+
+# Exception: the small web-optimized clips the site self-hosts (~75 MB total)
+!assets/video/*.mp4
 
 # Dependencies
 node_modules/
