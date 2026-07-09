@@ -384,6 +384,14 @@
   .offer-list li svg{width:18px;height:18px;color:var(--sync);flex:none;margin-top:2px}
   @media (max-width:760px){ .offer{grid-template-columns:1fr;gap:26px} }
 
+  /* ---- guarantee / who / reassurance ---- */
+  .cta-fine{margin-top:14px;font-size:.9rem;color:var(--text-3);display:flex;align-items:center;gap:8px}
+  .cta-fine svg{width:15px;height:15px;color:var(--sync);flex:none}
+  .guarantee{border:1px solid var(--line);border-radius:var(--radius);background:var(--raised);padding:clamp(32px,5vw,54px);text-align:center}
+  .guarantee .eyebrow{justify-content:center}
+  .guarantee h2{margin-top:16px;font-size:clamp(1.55rem,3.4vw,2.35rem)}
+  .guarantee p{margin:18px auto 0;max-width:60ch;font-size:1.06rem}
+
   /* ---- final cta ---- */
   .final{text-align:center;padding:clamp(70px,10vw,130px) 0}
   .final h2{font-size:clamp(2.1rem,5.5vw,3.6rem);max-width:20ch;margin:16px auto 0}
@@ -393,7 +401,7 @@
   .final .signoff .bdot{width:7px;height:7px;border-radius:50%;background:var(--sync);box-shadow:0 0 8px var(--sync-line)}
 
   /* ---- footer ---- */
-  footer{border-top:1px solid var(--line);padding:48px 0 40px}
+  footer.wrap{border-top:1px solid var(--line);padding:36px 0 40px}
   .foot-in{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:flex-start}
   .foot-brand{max-width:24rem}
   .foot-brand p{margin-top:14px;font-size:.92rem}
@@ -505,6 +513,7 @@
           </a>
           <a class="btn btn-ghost" href="#how">See how it works</a>
         </div>
+        <p class="cta-fine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>First video's free if you don't love it.</p>
         <div class="partner">
           <span class="chip">In production for</span>
           <b>BIMobject · OpenDictionary</b>
@@ -548,7 +557,7 @@
     <div class="sync-copy reveal">
       <span class="eyebrow"><span class="pulse"></span>Always up to date</span>
       <h2>Screen recordings age the moment you ship. Yours&nbsp;won't.</h2>
-      <p class="lead">Our sync process watches your product, catches what changes, and re-renders the affected videos automatically, so your whole library stays current. No re-shoots, no scramble.</p>
+      <p class="lead">Standards shift, flows get renamed, buttons move, and your tutorials quietly stop matching the product. Our sync process watches your product, catches what changes, and re-renders the affected videos automatically, so your whole library stays current. No re-shoots, no scramble.</p>
     </div>
     <div class="sync-anim reveal d2">
       <iframe class="sync-frame" src="assets/anim/sync-loop.html" title="StepByStep keeps your video in sync with your product" loading="lazy" scrolling="no"></iframe>
@@ -643,7 +652,7 @@
           <span class="step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4 1.5-4-2.5-6-3m12 5v-3.5a3 3 0 0 0-.9-2.6c3-.3 6-1.5 6-6.5a5 5 0 0 0-1.4-3.5 4.6 4.6 0 0 0-.1-3.5s-1.1-.3-3.5 1.3a12 12 0 0 0-6.4 0C6.9.4 5.8.7 5.8.7a4.6 4.6 0 0 0-.1 3.5A5 5 0 0 0 4.3 7.7c0 5 3 6.2 6 6.5a3 3 0 0 0-.9 2.3V21"/></svg></span>
         </div>
         <h3>Point us at your repo</h3>
-        <p>We read your actual product straight from the codebase, the real components, states and flows it's built from.</p>
+        <p>We read your actual product straight from the codebase, the real components, states and flows it's built from. We never write to your repo, and nothing goes out without your approval.</p>
         <span class="note">// source of truth: the repo</span>
       </div>
       <div class="step reveal d2">
@@ -685,6 +694,15 @@
     </div>
   </section>
 
+  <!-- ===================== GUARANTEE ===================== -->
+  <section class="block wrap" id="guarantee">
+    <div class="guarantee reveal">
+      <span class="eyebrow">The guarantee</span>
+      <h2>Your first video is free if you don't&nbsp;love&nbsp;it.</h2>
+      <p>One agreed concept, full production, no shortcuts. Watch it. If it isn't something you'd be proud to put in front of your users, you don't pay. We'd rather earn the second video than argue about the first.</p>
+    </div>
+  </section>
+
   <!-- ===================== PRICING ===================== -->
   <section class="block wrap" id="pricing">
     <div class="section-head reveal">
@@ -698,6 +716,7 @@
         <a class="btn btn-primary" href="https://calendly.com/eslo-editing/30min" target="_blank" rel="noopener">Book a call
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
+        <p class="cta-fine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>First video's free if you don't love it.</p>
       </div>
       <ul class="offer-list">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Tutorials, onboarding, launches and marketing</li>
