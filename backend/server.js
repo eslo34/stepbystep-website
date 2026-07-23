@@ -70,7 +70,7 @@ const EMAIL_TEMPLATES = {
             
             <div style="text-align: center; margin: 30px 0;">
                 <p><strong>Want to chat sooner?</strong> Book a quick 15-minute call with us:</p>
-                <a href="https://calendly.com/eslo-editing/30min" 
+                <a href="https://calendly.com/max-usestepbystep/meeting" 
                    style="background: #60A5FA; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
                    📅 Schedule a Quick Call
                 </a>
